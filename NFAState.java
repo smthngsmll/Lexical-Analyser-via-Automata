@@ -16,7 +16,9 @@ public class NFAState {
     public void addEpsilonTransition(NFAState state) {
         epsilonTransitions.add(state);
     }
-
+public Set<Character> getTransitionSymbols() {
+    return transitions.keySet();
+}
     public List<NFAState> getTransitions(char symbol) {
         return transitions.getOrDefault(symbol, new ArrayList<>());
     }
