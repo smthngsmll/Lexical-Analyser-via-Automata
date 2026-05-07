@@ -135,19 +135,16 @@ public class AutomataBuilder {
 
                     String tokenType = null;
 
-                    for (NFAState state : nextSet) {
+                   for (NFAState state : nextSet) {
+    if (state.isAccept()) {
+        String type = state.getTokenType();
 
-                        if (state.isAccept()) {
-
-                            accept = true;
-
-                            tokenType =
-                                    state.getTokenType();
-
-                            break;
-                        }
-                    }
-
+        if (tokenType == null || getPriority(type) < getPriority(tokenType)) {
+            tokenType = type;
+            accept = true;
+        }
+    }
+}
                     nextState.setAccept(accept);
 
                     if (accept) {
@@ -169,6 +166,12 @@ public class AutomataBuilder {
 
         return dfa;
     }
+    private int getPriority(String tokenType) {
+    if (tokenType.startsWith("KW_")) return 1;
+    if (tokenType.equals("ID")) return 2;
+    if (tokenType.equals("NUM")) return 3;
+    return 4;
+}
 
     private Set<NFAState> epsilonClosure(Set<NFAState> states) {
 

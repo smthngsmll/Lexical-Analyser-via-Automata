@@ -4,8 +4,7 @@ import java.util.Scanner;
 public class main {
 
     public static void main(String[] args) {
-
-        AutomataBuilder builder = new AutomataBuilder();
+ AutomataBuilder builder = new AutomataBuilder();
 
         DFA dfa = builder.buildLexerDFA();
 
@@ -15,9 +14,21 @@ public class main {
 
         System.out.println("Enter source code:");
 
-        String input = scanner.nextLine();
+        StringBuilder input = new StringBuilder();
 
-        lexer.scan(input);
+        while (true) {
+
+            String line = scanner.nextLine();
+
+            if (line.equals("END")) {
+                break;
+            }
+
+            input.append(line).append("\n");
+        }
+
+        lexer.scan(input.toString());
     }
+      
 }
 
