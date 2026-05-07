@@ -273,27 +273,36 @@ public class AutomataBuilder {
     }
 
     private NFA buildNumberNFA() {
+    NFAState start = new NFAState();
+    NFAState intPart = new NFAState();
+    NFAState dot = new NFAState();
+    NFAState decimalPart = new NFAState();
 
-        NFAState start = new NFAState();
+    for (char c = '0'; c <= '9'; c++) {
+        start.addTransition(c, intPart);
+        intPart.addTransition(c, intPart);
+    }
 
-        NFAState num = new NFAState();
+    intPart.addTransition('.', dot);
 
-        for (char c = '0'; c <= '9'; c++) {
+    for (char c = '0'; c <= '9'; c++) {
+        dot.addTransition(c, decimalPart);
+        decimalPart.addTransition(c, decimalPart);
+    }
 
-            start.addTransition(c, num);
+    intPart.setAccept(true);
+    intPart.setTokenType("NUM");
 
-            num.addTransition(c, num);
-        }
+    decimalPart.setAccept(true);
+    decimalPart.setTokenType("NUM");
 
-        num.setAccept(true);
+    Set<NFAState> accept = new HashSet<>();
+    accept.add(intPart);
+    accept.add(decimalPart);
 
-        num.setTokenType("NUM");
+    return new NFA(start, accept);
 
-        Set<NFAState> accept = new HashSet<>();
-
-        accept.add(num);
-
-        return new NFA(start, accept);
+       
     }
 
     private NFA buildKeywordNFA(String keyword) {
