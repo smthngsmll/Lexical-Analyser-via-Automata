@@ -63,7 +63,6 @@ public class DFALexer {
 
             if (lastAccept != null) {
                 String lexeme = input.substring(start, lastAcceptIndex);//cut the part from the text
-
                 System.out.printf(
     "%-15s %-15s Line %d, column %d%n",
     "'" + lexeme + "'",

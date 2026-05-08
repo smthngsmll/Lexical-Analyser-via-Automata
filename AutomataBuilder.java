@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class AutomataBuilder {
@@ -261,8 +260,7 @@ public class AutomataBuilder {
 
             id.addTransition(c, id);
         }
-        start.addTransition('_', id);
-        
+
         id.addTransition('_', id);
 
         id.setAccept(true);
