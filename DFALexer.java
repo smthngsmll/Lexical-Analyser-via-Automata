@@ -13,7 +13,11 @@ public class DFALexer {
         int line = 1;
         int column = 1;
 
-        System.out.println("Lexeme\tToken\tPosition");//Table title.
+       System.out.printf("%-15s %-15s %s%n",
+        "Lexeme",
+        "Token",
+        "Position");//Table title.
+        System.out.println("------------------------------------------------------------");
 
         while (i < input.length()) {//if not reached in thee end of the text coomplete scan
 
@@ -60,11 +64,13 @@ public class DFALexer {
             if (lastAccept != null) {
                 String lexeme = input.substring(start, lastAcceptIndex);//cut the part from the text
 
-                System.out.println(
-                        "'" + lexeme + "'\t" +
-                        lastAccept.getTokenType() +
-                        "\tLine " + line + ", column " + startColumn
-                );
+                System.out.printf(
+    "%-15s %-15s Line %d, column %d%n",
+    "'" + lexeme + "'",
+    lastAccept.getTokenType(),
+    line,
+    startColumn
+);
 
                 i = lastAcceptIndex;
                 column = lastAcceptCol;
